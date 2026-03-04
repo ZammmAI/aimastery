@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Mastery — Sri Lanka's #1 AI Course</title>
+<meta name="description" content="Master AI and earn online. Sri Lanka's most complete AI course — 21 modules, certificate, Discord community. $100 one-time payment.">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{--ink:#0c0c0f;--cream:#f7f3ee;--warm:#ede8e1;--accent:#ff4d00;--accent2:#ff8c42;--gold:#c9a84c;--muted:#7a7468;--border:rgba(0,0,0,0.08);}
+body{font-family:'Instrument Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;}
+body.cur-hover .cursor{width:18px!important;height:18px!important;}
+body.cur-hover .cursor-ring{width:52px!important;height:52px!important;opacity:0.9!important;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:0.6;}
+h1,h2,h3,h4,h5{font-family:'Clash Display','Georgia',serif;font-weight:600;}
+#particle-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.2;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(247,243,238,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.nav-scrolled{background:rgba(247,243,238,0.98);box-shadow:0 2px 24px rgba(0,0,0,0.07);}
+.nav-brand{font-family:'Clash Display',serif;font-weight:700;font-size:1.15rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink);}
+.nav-brand em{color:var(--accent);font-style:normal;}
+.nav-brand span{color:var(--muted);font-size:0.6rem;display:block;letter-spacing:0.12em;font-weight:500;margin-top:-2px;font-family:'Instrument Sans',sans-serif;}
+.nav-pill{display:flex;align-items:center;gap:20px;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:0.82rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-btn{background:var(--ink);color:var(--cream);padding:11px 24px;border-radius:100px;font-family:'Clash Display',serif;font-weight:600;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .2s;}
+.nav-btn:hover{background:var(--accent);transform:scale(1.03);}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;gap:64px;position:relative;overflow:hidden;}
+.hero-left{position:relative;z-index:2;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;opacity:0;animation:slideUp .7s .1s forwards;}
+.hero-eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--accent);}
+.hero h1{font-size:clamp(3rem,5.5vw,5.2rem);line-height:1.02;letter-spacing:-0.03em;color:var(--ink);margin-bottom:28px;opacity:0;animation:slideUp .7s .2s forwards;}
+.highlight{color:var(--accent);position:relative;display:inline-block;}
+.highlight::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:left;animation:lineIn .5s 1s forwards;}
+@keyframes lineIn{to{transform:scaleX(1);}}
+.hero-sub{font-size:1.1rem;line-height:1.7;color:var(--muted);max-width:480px;margin-bottom:40px;font-style:italic;opacity:0;animation:slideUp .7s .3s forwards;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:slideUp .7s .4s forwards;margin-bottom:52px;}
+.btn-main{background:var(--accent);color:white;padding:16px 36px;border-radius:100px;font-family:'Clash Display',serif;font-weight:600;font-size:0.95rem;letter-spacing:0.04em;text-decoration:none;transition:all .25s;box-shadow:0 8px 32px rgba(255,77,0,0.3);position:relative;overflow:hidden;}
+.btn-main::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.28) 50%,transparent 70%);transform:translateX(-100%);pointer-events:none;}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(255,77,0,0.4);background:#e63d00;}
+.btn-main:hover::after{transform:translateX(100%);transition:transform .5s ease;}
+.btn-ghost{background:transparent;color:var(--ink);padding:16px 28px;border-radius:100px;font-family:'Clash Display',serif;font-weight:600;font-size:0.9rem;text-decoration:none;border:1.5px solid rgba(0,0,0,0.18);transition:all .2s;}
+.btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:var(--cream);}
+.hero-proof{display:flex;align-items:center;gap:20px;opacity:0;animation:slideUp .7s .5s forwards;}
+.proof-avatars{display:flex;}
+.proof-avatar{width:34px;height:34px;border-radius:50%;border:2px solid var(--cream);margin-right:-10px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:0.9rem;}
+.proof-text{font-size:0.82rem;color:var(--muted);line-height:1.4;}
+.proof-text strong{color:var(--ink);display:block;font-size:0.88rem;}
+.hero-right{position:relative;opacity:0;animation:fadeIn 1s .6s forwards;}
+.hero-card-main{background:var(--ink);color:var(--cream);border-radius:24px;padding:40px;position:relative;overflow:hidden;}
+.hero-card-main::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,77,0,0.3),transparent 70%);}
+.card-label{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:600;}
+.card-paths{display:flex;flex-direction:column;gap:16px;margin-bottom:32px;}
+.card-path{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.06);border-radius:10px;border:1px solid rgba(255,255,255,0.08);transition:background .2s;}
+.card-path:hover{background:rgba(255,77,0,0.15);}
+.path-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-1{background:#60a5fa;}.dot-2{background:var(--accent2);}.dot-3{background:var(--gold);}
+.path-info{flex:1;}
+.path-name{font-family:'Clash Display',serif;font-size:0.95rem;font-weight:600;}
+.path-count{font-size:0.75rem;color:rgba(247,243,238,0.5);margin-top:2px;}
+.path-arrow{color:rgba(247,243,238,0.3);font-size:0.9rem;}
+.card-price-row{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+.card-price{font-family:'Clash Display',serif;font-size:2.8rem;font-weight:700;color:var(--cream);}
+.card-price sup{font-size:1.2rem;vertical-align:top;margin-top:8px;color:var(--accent);}
+.card-price-note{font-size:0.78rem;color:rgba(247,243,238,0.5);}
+.floating-badge{position:absolute;top:-16px;right:24px;background:var(--gold);color:var(--ink);font-family:'Clash Display',serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:6px 16px;border-radius:100px;box-shadow:0 4px 16px rgba(201,168,76,0.4);}
+.floating-pill{position:absolute;bottom:-20px;left:20px;background:white;border-radius:12px;padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:flex;align-items:center;gap:12px;font-size:0.82rem;}
+.pill-icon{font-size:1.4rem;}.pill-label{color:var(--muted);font-size:0.72rem;}
+.pill-val{font-weight:600;color:var(--ink);font-family:'Clash Display',serif;}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.ticker{background:var(--ink);padding:14px 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-flex;gap:48px;animation:ticker 18s linear infinite;}
+.ticker-item{font-family:'Clash Display',serif;font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);opacity:0.6;}
+.ticker-item em{color:var(--accent);font-style:normal;opacity:1;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:100px 48px;}
+.section-tag{font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.section-tag::before{content:'';display:block;width:20px;height:1.5px;background:var(--accent);}
+
+.trust{background:var(--cream);padding:44px 48px;border-bottom:1px solid var(--border);}
+.trust-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;color:var(--muted);}
+.trust-icon{font-size:1.5rem;}
+.trust-divider{width:1px;height:28px;background:var(--border);}
+
+.video-section{background:var(--ink);color:var(--cream);padding:80px 48px;}
+.video-inner{max-width:860px;margin:0 auto;text-align:center;}
+.video-inner .section-tag{justify-content:center;color:var(--accent2);}
+.video-inner .section-tag::before{background:var(--accent2);}
+.video-inner h2{font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:16px;}
+.video-inner p{color:rgba(247,243,238,0.6);margin-bottom:40px;font-size:0.95rem;line-height:1.7;}
+.video-frame{position:relative;width:100%;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#1a1a2e;border:1px solid rgba(255,255,255,0.08);box-shadow:0 32px 80px rgba(0,0,0,0.5);}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(135deg,#1a1a2e,#0d0d18);cursor:pointer;transition:background .3s;}
+.video-placeholder:hover{background:linear-gradient(135deg,#22223a,#15151f);}
+.play-btn{width:72px;height:72px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 8px 32px rgba(255,77,0,0.4);transition:transform .2s,box-shadow .2s;}
+.video-placeholder:hover .play-btn{transform:scale(1.1);box-shadow:0 16px 48px rgba(255,77,0,0.5);}
+.video-placeholder span{font-size:0.88rem;color:rgba(247,243,238,0.55);}
+
+.pain{background:var(--warm);}
+.pain-grid-wrap{max-width:1100px;margin:0 auto;}
+.pain-head{margin-bottom:56px;}
+.pain-head h2{font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.08;letter-spacing:-0.02em;}
+.pain-head h2 span{color:var(--accent);}
+.pain-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.pain-card{background:var(--cream);padding:36px 28px;transition:background .25s,transform .25s;border-radius:4px;}
+.pain-card:hover{background:var(--ink);color:var(--cream);transform:translateY(-4px);}
+.pain-card:hover .pain-card-muted{color:rgba(247,243,238,0.55);}
+.pain-emoji{font-size:2rem;margin-bottom:20px;}
+.pain-card h3{font-size:1rem;font-weight:600;margin-bottom:10px;line-height:1.3;}
+.pain-card-muted{font-size:0.875rem;color:var(--muted);line-height:1.6;transition:color .25s;}
+
+.outcomes{background:var(--cream);}
+.outcomes-inner{max-width:1100px;margin:0 auto;}
+.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;}
+.outcome-item{background:white;padding:32px 28px;display:flex;gap:18px;align-items:flex-start;transition:background .2s;}
+.outcome-item:hover{background:var(--warm);}
+.outcome-num{font-family:'Clash Display',serif;font-size:2.2rem;color:rgba(255,77,0,0.12);font-weight:700;line-height:1;flex-shrink:0;width:52px;}
+.outcome-text h3{font-size:0.98rem;font-weight:700;margin-bottom:6px;}
+.outcome-text p{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+
+.curriculum{background:var(--warm);}
+.curriculum-wrap{max-width:1100px;margin:0 auto;}
+.curriculum-head{margin-bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+.curriculum-head h2{font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.08;letter-spacing:-0.02em;}
+.module-count{font-size:0.82rem;color:var(--muted);font-weight:500;}
+.module-count strong{font-size:2.4rem;color:var(--ink);font-family:'Clash Display',serif;display:block;line-height:1;}
+.path-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;}
+.path-tab{padding:9px 22px;border-radius:100px;font-family:'Clash Display',serif;font-size:0.82rem;font-weight:600;letter-spacing:0.05em;cursor:pointer;border:1.5px solid var(--border);background:white;transition:all .2s;color:var(--muted);}
+.path-tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+.path-tab:hover:not(.active){border-color:var(--ink);color:var(--ink);}
+.path-panel{display:none;}
+.path-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:2px;animation:panelIn .3s ease;}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.module-row{display:flex;align-items:flex-start;gap:16px;padding:20px 24px;background:white;border-radius:4px;transition:background .2s;}
+.module-row:hover{background:var(--cream);}
+.module-num{font-family:'Clash Display',serif;font-size:0.7rem;font-weight:600;color:var(--accent);letter-spacing:0.1em;flex-shrink:0;margin-top:3px;width:24px;}
+.module-text{font-size:0.9rem;line-height:1.4;color:var(--ink);font-weight:500;}
+.module-sub{font-size:0.78rem;color:var(--muted);margin-top:3px;font-weight:400;}
+
+.certificate{background:var(--ink);color:var(--cream);padding:80px 48px;}
+.cert-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.cert-left h2{font-size:clamp(2rem,3.5vw,3rem);line-height:1.1;margin-bottom:20px;}
+.cert-left p{color:rgba(247,243,238,0.6);line-height:1.7;margin-bottom:32px;}
+.cert-points{display:flex;flex-direction:column;gap:14px;}
+.cert-point{display:flex;align-items:center;gap:14px;font-size:0.9rem;color:rgba(247,243,238,0.8);}
+.cert-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;flex-shrink:0;}
+.cert-visual{background:linear-gradient(135deg,#1a1a2e,#22223a);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:44px 36px;text-align:center;position:relative;overflow:hidden;}
+.cert-visual::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,77,0,0.2),transparent 70%);}
+.cert-logo{font-family:'Clash Display',serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+.cert-title{font-family:'Clash Display',serif;font-size:1.7rem;margin-bottom:8px;}
+.cert-subtitle{font-size:0.8rem;color:rgba(247,243,238,0.5);margin-bottom:24px;}
+.cert-name-line{font-size:1.2rem;font-style:italic;color:rgba(247,243,238,0.9);border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:16px;margin-bottom:20px;}
+.cert-desc{font-size:0.75rem;color:rgba(247,243,238,0.45);margin-bottom:24px;line-height:1.5;}
+.cert-seal{font-size:2.2rem;margin-bottom:6px;}
+.cert-seal-text{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+
+.community{background:var(--warm);padding:80px 48px;}
+.community-head{max-width:1100px;margin:0 auto 48px;}
+.community-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.community-card{background:white;border-radius:16px;padding:40px;transition:transform .2s,box-shadow .2s;}
+.community-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.1);}
+.community-icon{font-size:2.5rem;margin-bottom:20px;}
+.community-card h3{font-size:1.2rem;font-weight:700;margin-bottom:10px;}
+.community-card p{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+.community-link{display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:gap .2s;}
+.community-link:hover{gap:14px;}
+
+.pricing{background:var(--ink);color:var(--cream);}
+.pricing-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start;}
+.pricing-left h2{font-size:clamp(2rem,3.6vw,3.2rem);letter-spacing:-0.02em;line-height:1.08;margin-bottom:24px;}
+.pricing-left p{color:rgba(247,243,238,0.6);font-size:1rem;line-height:1.7;margin-bottom:40px;}
+.included-list{display:flex;flex-direction:column;gap:14px;}
+.included-item{display:flex;align-items:center;gap:14px;font-size:0.9rem;color:rgba(247,243,238,0.8);}
+.inc-icon{width:26px;height:26px;background:rgba(255,77,0,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--accent);flex-shrink:0;}
+
+.enroll-card{background:var(--cream);color:var(--ink);border-radius:24px;padding:44px 40px;position:relative;}
+.enroll-badge{position:absolute;top:-14px;left:32px;background:var(--gold);color:var(--ink);font-family:'Clash Display',serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:5px 16px;border-radius:100px;}
+.enroll-price{font-family:'Clash Display',serif;font-size:3.6rem;font-weight:700;line-height:1;margin-bottom:4px;}
+.enroll-price sup{font-size:1.4rem;vertical-align:top;margin-top:12px;color:var(--accent);}
+.enroll-price-note{font-size:0.82rem;color:var(--muted);margin-bottom:8px;}
+.enroll-lkr{font-size:0.9rem;color:var(--accent);font-weight:600;margin-bottom:28px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.form-input,.form-select{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:'Instrument Sans',sans-serif;font-size:0.93rem;color:var(--ink);background:white;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;}
+.form-input:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,77,0,0.1);}
+.form-input::placeholder{color:#bbb;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.bank-box{background:var(--warm);border:1.5px dashed rgba(0,0,0,0.15);border-radius:12px;padding:18px 20px;margin-bottom:16px;}
+.bank-box-title{font-family:'Clash Display',serif;font-weight:600;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.bank-detail{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.06);}
+.bank-detail:last-child{border:none;}
+.bank-key{color:var(--muted);font-size:0.8rem;}
+.bank-val{font-weight:600;font-size:0.85rem;color:var(--ink);}
+.file-label{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border:1.5px dashed rgba(0,0,0,0.2);border-radius:10px;font-size:0.85rem;color:var(--muted);cursor:pointer;transition:all .2s;background:white;margin-bottom:16px;}
+.file-label:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,77,0,0.04);}
+.file-input{display:none;}
+.btn-enroll{width:100%;background:var(--accent);color:white;border:none;padding:18px;border-radius:100px;font-family:'Clash Display',serif;font-weight:700;font-size:1rem;letter-spacing:0.05em;cursor:pointer;transition:all .25s;box-shadow:0 8px 32px rgba(255,77,0,0.35);position:relative;overflow:hidden;}
+.btn-enroll::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.28) 50%,transparent 70%);transform:translateX(-100%);pointer-events:none;}
+.btn-enroll:hover{background:#e63d00;transform:translateY(-2px);box-shadow:0 16px 48px rgba(255,77,0,0.45);}
+.btn-enroll:hover::after{transform:translateX(100%);transition:transform .5s ease;}
+.btn-enroll:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.form-secure{font-size:0.76rem;color:var(--muted);text-align:center;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.success-state{display:none;text-align:center;padding:20px 0;}
+.success-icon{font-size:3rem;margin-bottom:16px;}
+.success-state h3{font-size:1.4rem;margin-bottom:10px;}
+.success-state p{font-size:0.9rem;color:var(--muted);line-height:1.6;}
+
+/* Status messages */
+.form-status{padding:12px 16px;border-radius:10px;font-size:0.85rem;margin-bottom:14px;display:none;}
+.form-status.error{background:#fff0ed;border:1px solid #ffccc0;color:#c0392b;}
+.form-status.loading{background:#fff8e1;border:1px solid #ffe082;color:#7a6000;}
+
+.faq{background:var(--warm);}
+.faq-wrap{max-width:720px;margin:0 auto;}
+.faq-head{margin-bottom:48px;}
+.faq-head h2{font-size:clamp(2rem,3.2vw,2.8rem);letter-spacing:-0.02em;}
+.faq-item{border-bottom:1px solid rgba(0,0,0,0.09);}
+.faq-btn{width:100%;background:none;border:none;display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-family:'Clash Display',serif;font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer;gap:16px;text-align:left;transition:color .2s;}
+.faq-btn:hover{color:var(--accent);}
+.faq-icon{font-size:1.3rem;transition:transform .25s;color:var(--accent);flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-body p{padding-bottom:22px;font-size:0.9rem;color:var(--muted);line-height:1.7;}
+.faq-item.open .faq-body{max-height:220px;}
+
+.contact{background:var(--cream);padding:80px 48px;}
+.contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.contact-left h2{font-size:clamp(2rem,3.5vw,3rem);line-height:1.1;margin-bottom:16px;}
+.contact-left p{color:var(--muted);line-height:1.7;margin-bottom:32px;}
+.contact-methods{display:flex;flex-direction:column;gap:14px;}
+.contact-method{display:flex;align-items:center;gap:16px;padding:18px 20px;background:white;border-radius:12px;border:1.5px solid var(--border);text-decoration:none;color:var(--ink);transition:all .2s;}
+.contact-method:hover{border-color:var(--accent);background:rgba(255,77,0,0.03);transform:translateX(4px);}
+.contact-method-icon{font-size:1.5rem;flex-shrink:0;}
+.contact-method-text strong{display:block;font-size:0.9rem;font-weight:700;margin-bottom:2px;}
+.contact-method-text span{font-size:0.78rem;color:var(--muted);}
+.contact-right{background:var(--ink);border-radius:20px;padding:40px;color:var(--cream);}
+.contact-right h3{font-size:1.3rem;margin-bottom:12px;}
+.contact-right p{font-size:0.88rem;color:rgba(247,243,238,0.6);line-height:1.7;margin-bottom:24px;}
+.social-links{display:flex;flex-direction:column;gap:10px;}
+.social-link{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,0.06);border-radius:8px;font-size:0.85rem;color:rgba(247,243,238,0.8);text-decoration:none;transition:background .2s;}
+.social-link:hover{background:rgba(255,77,0,0.15);color:var(--cream);}
+
+footer{background:var(--ink);color:rgba(247,243,238,0.5);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Clash Display',serif;font-weight:700;font-size:1.1rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream);}
+.footer-brand em{color:var(--accent);font-style:normal;}
+.footer-brand span{display:block;font-size:0.6rem;letter-spacing:0.14em;color:rgba(247,243,238,0.35);margin-top:2px;font-family:'Instrument Sans',sans-serif;font-weight:500;}
+footer p{font-size:0.8rem;}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:0.78rem;color:rgba(247,243,238,0.4);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--accent);}
+
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:800;}
+.chat-toggle{width:58px;height:58px;background:var(--accent);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 32px rgba(255,77,0,0.4);transition:transform .2s,box-shadow .2s;}
+.chat-toggle:hover{transform:scale(1.1);box-shadow:0 16px 48px rgba(255,77,0,0.5);}
+.chat-window{position:absolute;bottom:72px;right:0;width:340px;background:white;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.18);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--border);}
+.chat-window.open{display:flex;animation:popUp .25s ease;}
+@keyframes popUp{from{opacity:0;transform:scale(0.92) translateY(10px)}to{opacity:1;transform:none}}
+.chat-header{background:var(--ink);color:var(--cream);padding:18px 20px;display:flex;align-items:center;gap:12px;}
+.chat-avatar{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.chat-header-info strong{display:block;font-size:0.9rem;font-weight:700;}
+.chat-header-info span{font-size:0.72rem;color:rgba(247,243,238,0.55);}
+.chat-online{width:8px;height:8px;background:#22c55e;border-radius:50%;margin-left:auto;}
+.chat-messages{flex:1;max-height:270px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:82%;padding:10px 14px;border-radius:12px;font-size:0.84rem;line-height:1.5;}
+.chat-msg.bot{background:var(--warm);color:var(--ink);border-bottom-left-radius:4px;}
+.chat-msg.user{background:var(--accent);color:white;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-msg.typing{background:var(--warm);color:var(--muted);font-style:italic;}
+.chat-suggestions{padding:10px 16px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border);}
+.chat-chip{background:var(--warm);color:var(--ink);border:1px solid var(--border);padding:5px 12px;border-radius:100px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.chat-chip:hover{background:var(--accent);color:white;border-color:var(--accent);}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);}
+.chat-input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:100px;font-family:'Instrument Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color .2s;}
+.chat-input:focus{border-color:var(--accent);}
+.chat-send{width:36px;height:36px;background:var(--accent);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:transform .2s;flex-shrink:0;color:white;}
+.chat-send:hover{transform:scale(1.1);}
+
+.sr{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.sr.in{opacity:1;transform:none;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .4s ease;}
+
+@media(max-width:900px){
+  nav{padding:16px 20px;}.nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:100px 20px 60px;gap:40px;}.hero-right{display:none;}
+  section,.video-section,.trust,.certificate,.community,.contact{padding:64px 20px;}
+  .pain-cards{grid-template-columns:1fr 1fr;}
+  .path-panel.active{grid-template-columns:1fr;}
+  .pricing-wrap,.cert-inner,.contact-inner{grid-template-columns:1fr;gap:40px;}
+  .community-grid{grid-template-columns:1fr;}
+  .outcomes-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  footer{padding:32px 20px;flex-direction:column;align-items:flex-start;}
+  .chat-window{width:300px;right:-8px;}
+}
+@media(max-width:540px){
+  .pain-cards{grid-template-columns:1fr;}
+  .curriculum-head{flex-direction:column;align-items:flex-start;}
+  .trust-divider{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="main-nav">
+  <div class="nav-brand">AI<em>Mastery</em><span>Sri Lanka's AI Course</span></div>
+  <div class="nav-pill">
+    <div class="nav-links">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#enroll">Enroll</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#enroll" class="nav-btn">Enroll Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">🇱🇰 Sri Lanka's AI Course — 2026</div>
+    <h1>Master AI.<br>Earn with it.<br><span class="highlight">Starting now.</span></h1>
+    <p class="hero-sub">The complete system for Sri Lankan students to understand AI, automate their work, and build real income online — from absolute zero. No IT degree needed.</p>
+    <div class="hero-actions">
+      <a href="#enroll" class="btn-main">Enroll Now — $100</a>
+      <a href="#video" class="btn-ghost">Watch Intro ▶</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-avatars">
+        <div class="proof-avatar">🧑</div>
+        <div class="proof-avatar">👩</div>
+        <div class="proof-avatar">🧑‍💻</div>
+      </div>
+      <div class="proof-text">
+        <strong>Join students across Sri Lanka</strong>
+        Learning AI & earning online, right now
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="floating-badge">🔥 Launch Price</div>
+    <div class="hero-card-main">
+      <div class="card-label">What's inside</div>
+      <div class="card-paths">
+        <div class="card-path"><div class="path-dot dot-1"></div><div class="path-info"><div class="path-name">Foundation — AI Made Simple</div><div class="path-count">7 modules · Complete beginners</div></div><div class="path-arrow">→</div></div>
+        <div class="card-path"><div class="path-dot dot-2"></div><div class="path-info"><div class="path-name">Builder — AI Power Tools</div><div class="path-count">6 modules · Productivity & automation</div></div><div class="path-arrow">→</div></div>
+        <div class="card-path"><div class="path-dot dot-3"></div><div class="path-info"><div class="path-name">Master — AI Systems & Income</div><div class="path-count">8 modules · Build real income</div></div><div class="path-arrow">→</div></div>
+      </div>
+      <div class="card-price-row">
+        <div><div class="card-price"><sup>$</sup>100</div><div class="card-price-note">1-Year Access · Certificate included</div></div>
+        <a href="#enroll" style="background:var(--accent);color:white;padding:12px 22px;border-radius:100px;font-family:'Clash Display',serif;font-weight:700;font-size:0.82rem;text-decoration:none;">Enroll →</a>
+      </div>
+    </div>
+    <div class="floating-pill"><div class="pill-icon">🏆</div><div><div class="pill-val">Certificate Included</div><div class="pill-label">After course completion</div></div></div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">AI Mastery</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">21 Modules</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Earn With AI</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Certificate Included</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">1-Year Access</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Sri Lanka 🇱🇰</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Discord Community</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">No Experience Needed</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">AI Mastery</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">21 Modules</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Earn With AI</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Certificate Included</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">1-Year Access</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Sri Lanka 🇱🇰</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">Discord Community</span><span class="ticker-item"><em>●</em></span>
+    <span class="ticker-item">No Experience Needed</span><span class="ticker-item"><em>●</em></span>
+  </div>
+</div>
+
+<div class="trust sr">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-icon">🎓</div><span>Certificate on Completion</span></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-icon">📅</div><span>1-Year Full Access</span></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-icon">💬</div><span>Private Discord Community</span></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-icon">💰</div><span>Income-Focused Curriculum</span></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-icon">🇱🇰</div><span>Built for Sri Lanka</span></div>
+  </div>
+</div>
+
+<section class="video-section" id="video">
+  <div class="video-inner">
+    <div class="section-tag sr" style="justify-content:center;color:var(--accent2);">Course Preview</div>
+    <h2 class="sr">See exactly what you're getting.</h2>
+    <p class="sr">Watch this short intro to understand what's inside AI Mastery and how it will help you earn with AI.</p>
+    <div class="video-frame sr">
+      <div class="video-placeholder" id="video-placeholder" onclick="loadVideo()">
+        <div class="play-btn">▶</div>
+        <span>Click to watch the course intro</span>
+      </div>
+      <iframe id="video-iframe" style="display:none" allowfullscreen allow="autoplay"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="pain-grid-wrap">
+    <div class="pain-head sr"><div class="section-tag">The reality</div><h2>AI is moving fast.<br>Don't get left <span>behind.</span></h2></div>
+    <div class="pain-cards">
+      <div class="pain-card sr"><div class="pain-emoji">😤</div><h3>"I don't know where to start with AI"</h3><p class="pain-card-muted">Every tool feels overwhelming. Nobody explains it simply enough for real people.</p></div>
+      <div class="pain-card sr"><div class="pain-emoji">⏱️</div><h3>"I waste hours on things AI could do in minutes"</h3><p class="pain-card-muted">Grinding manually while others automate and move 10x faster every day.</p></div>
+      <div class="pain-card sr"><div class="pain-emoji">💸</div><h3>"Others earn online with AI. I'm watching."</h3><p class="pain-card-muted">Freelancers and creators are cashing in. The gap keeps growing.</p></div>
+      <div class="pain-card sr"><div class="pain-emoji">🤯</div><h3>"AI never gives me useful results"</h3><p class="pain-card-muted">Bad prompts = bad outputs. The right method fixes everything.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="outcomes">
+  <div class="outcomes-inner">
+    <div class="sr"><div class="section-tag">What You'll Be Able To Do</div><h2>This isn't just learning AI.<br>It's <span style="color:var(--accent)">earning with it.</span></h2></div>
+    <div class="outcomes-grid">
+      <div class="outcome-item sr"><div class="outcome-num">01</div><div class="outcome-text"><h3>Save 2–3 hours every single day</h3><p>Automate the work you hate. Let AI handle repetitive tasks while you focus on what matters.</p></div></div>
+      <div class="outcome-item sr"><div class="outcome-num">02</div><div class="outcome-text"><h3>Offer AI services and get paid</h3><p>Package your skills into freelance services. Clients pay good money for AI-assisted content, automation, and more.</p></div></div>
+      <div class="outcome-item sr"><div class="outcome-num">03</div><div class="outcome-text"><h3>Build content that actually earns</h3><p>Use AI to create, publish, and monetise content at a pace you couldn't do manually.</p></div></div>
+      <div class="outcome-item sr"><div class="outcome-num">04</div><div class="outcome-text"><h3>Build systems that run without you</h3><p>Create automated pipelines that work while you sleep — the real meaning of income freedom.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="curriculum" id="curriculum">
+  <div class="curriculum-wrap">
+    <div class="curriculum-head sr">
+      <div><div class="section-tag">The Curriculum</div><h2>Three paths.<br>One complete system.</h2></div>
+      <div class="module-count"><strong>21</strong>Total modules</div>
+    </div>
+    <div class="path-tabs sr">
+      <div class="path-tab active" onclick="switchTab('foundation',this)">🔵 Foundation</div>
+      <div class="path-tab" onclick="switchTab('builder',this)">🟠 Builder</div>
+      <div class="path-tab" onclick="switchTab('master',this)">⭐ Master</div>
+    </div>
+    <div class="path-panel active" id="tab-foundation">
+      <div class="module-row"><div class="module-num">01</div><div class="module-text">Making Sense of AI Basics<div class="module-sub">Understand what AI actually is — simply</div></div></div>
+      <div class="module-row"><div class="module-num">02</div><div class="module-text">Using AI to Save Time<div class="module-sub">Daily habits that give you hours back</div></div></div>
+      <div class="module-row"><div class="module-num">03</div><div class="module-text">Choosing the Right AI for You<div class="module-sub">Which tools actually matter in 2026</div></div></div>
+      <div class="module-row"><div class="module-num">04</div><div class="module-text">How to Talk to AI Clearly<div class="module-sub">Prompting that actually works</div></div></div>
+      <div class="module-row"><div class="module-num">05</div><div class="module-text">Automating Simple Work<div class="module-sub">Your first real automation, step by step</div></div></div>
+      <div class="module-row"><div class="module-num">06</div><div class="module-text">Privacy, Security & Smart Use<div class="module-sub">Stay safe while using AI tools</div></div></div>
+      <div class="module-row"><div class="module-num">07</div><div class="module-text">Building Your First AI Setup<div class="module-sub">Your personal AI workspace, fully built</div></div></div>
+    </div>
+    <div class="path-panel" id="tab-builder">
+      <div class="module-row"><div class="module-num">01</div><div class="module-text">Advanced Prompt Engineering<div class="module-sub">Get exactly what you want from any AI</div></div></div>
+      <div class="module-row"><div class="module-num">02</div><div class="module-text">Automating Basics<div class="module-sub">Set it up once, let it run forever</div></div></div>
+      <div class="module-row"><div class="module-num">03</div><div class="module-text">AI for Research, Analysis & Writing<div class="module-sub">Do in 20 min what used to take a day</div></div></div>
+      <div class="module-row"><div class="module-num">04</div><div class="module-text">AI for Marketing & Content Creation<div class="module-sub">Build a content machine with AI</div></div></div>
+      <div class="module-row"><div class="module-num">05</div><div class="module-text">Building AI-Assisted Workflows<div class="module-sub">Connect tools into powerful systems</div></div></div>
+      <div class="module-row"><div class="module-num">06</div><div class="module-text">AI Tools to Create Flows<div class="module-sub">No-code automation that saves real time</div></div></div>
+    </div>
+    <div class="path-panel" id="tab-master">
+      <div class="module-row"><div class="module-num">01</div><div class="module-text">Building Your First AI Workflow<div class="module-sub">A real system that runs your work</div></div></div>
+      <div class="module-row"><div class="module-num">02</div><div class="module-text">Creating Custom AI Assistants<div class="module-sub">Build AI that works exactly for you</div></div></div>
+      <div class="module-row"><div class="module-num">03</div><div class="module-text">Creating Automated Business Pipelines<div class="module-sub">Build processes that run without you</div></div></div>
+      <div class="module-row"><div class="module-num">04</div><div class="module-text">Daily Work with AI + No-Code Tools<div class="module-sub">Stack tools to 10x your output</div></div></div>
+      <div class="module-row"><div class="module-num">05</div><div class="module-text">AI for Content & Marketing Systems<div class="module-sub">Build a full content engine</div></div></div>
+      <div class="module-row"><div class="module-num">06</div><div class="module-text">Managing Multiple AI Tools Together<div class="module-sub">Become the person who knows everything</div></div></div>
+      <div class="module-row"><div class="module-num">07</div><div class="module-text">Turning AI Skills into Services<div class="module-sub">Package your skills, get paid</div></div></div>
+      <div class="module-row"><div class="module-num">08</div><div class="module-text">Designing Your AI Income System<div class="module-sub">The full blueprint to earn online with AI</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="certificate">
+  <div class="cert-inner">
+    <div class="cert-left sr">
+      <div class="section-tag" style="color:var(--gold)">Upon Completion</div>
+      <h2>Earn a certificate that proves your skills.</h2>
+      <p>Complete all three paths and receive an official AI Mastery certificate — something real to add to your CV, LinkedIn, and freelance profile.</p>
+      <div class="cert-points">
+        <div class="cert-point"><div class="cert-dot"></div>Recognised proof of AI skills</div>
+        <div class="cert-point"><div class="cert-dot"></div>Add to your LinkedIn and CV</div>
+        <div class="cert-point"><div class="cert-dot"></div>Boosts credibility with clients</div>
+        <div class="cert-point"><div class="cert-dot"></div>Issued after completing all 21 modules</div>
+      </div>
+    </div>
+    <div class="cert-visual sr">
+      <div class="cert-logo">AI Mastery 🇱🇰</div>
+      <div class="cert-title">Certificate of Completion</div>
+      <div class="cert-subtitle">This certifies that</div>
+      <div class="cert-name-line">Your Name Here</div>
+      <div class="cert-desc">has successfully completed the AI Mastery program<br>Foundation · Builder · Master — 21 Modules</div>
+      <div class="cert-seal">🏆</div>
+      <div class="cert-seal-text">AI Mastery · Sri Lanka · 2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="community">
+  <div class="community-head sr"><div class="section-tag">Community</div><h2>You're not learning alone.</h2></div>
+  <div class="community-grid">
+    <div class="community-card sr">
+      <div class="community-icon">💬</div>
+      <h3>Private Discord Community</h3>
+      <p>Join a growing community of Sri Lankan AI learners. Ask questions, share wins, get feedback, and stay updated with the latest AI tools and opportunities.</p>
+      <a href="https://discord.gg/YOURINVITE" target="_blank" class="community-link">Join Discord →</a>
+    </div>
+    <div class="community-card sr">
+      <div class="community-icon">📘</div>
+      <h3>Facebook & Social Media</h3>
+      <p>Follow AI Mastery on Facebook, Instagram and TikTok for free tips, updates, and new content. Stay connected with the community every day.</p>
+      <a href="https://facebook.com/aimastery.lk" target="_blank" class="community-link">Follow on Facebook →</a>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="enroll">
+  <div class="pricing-wrap">
+    <div class="pricing-left sr">
+      <div class="section-tag" style="color:var(--accent2)">Enrollment</div>
+      <h2>One price.<br>Everything included.<br>1-Year Access.</h2>
+      <p>No hidden fees. No monthly charges. Pay once and access everything for a full year — including all updates, Discord community, and your certificate.</p>
+      <div class="included-list">
+        <div class="included-item"><div class="inc-icon">✓</div>Full Foundation Path — 7 modules</div>
+        <div class="included-item"><div class="inc-icon">✓</div>Full Builder Path — 6 modules</div>
+        <div class="included-item"><div class="inc-icon">✓</div>Full Master Path — 8 modules</div>
+        <div class="included-item"><div class="inc-icon">✓</div>1-Year access + all updates</div>
+        <div class="included-item"><div class="inc-icon">✓</div>Certificate on completion 🎓</div>
+        <div class="included-item"><div class="inc-icon">✓</div>Private Discord community</div>
+        <div class="included-item"><div class="inc-icon">✓</div>AI income system blueprint</div>
+      </div>
+    </div>
+    <div class="enroll-card sr" id="enroll-card">
+      <div class="enroll-badge">⚡ Launch Price</div>
+      <div id="form-state">
+        <div class="enroll-price"><sup>$</sup>100</div>
+        <div class="enroll-price-note">One-time payment · 1-Year access</div>
+        <div class="enroll-lkr">≈ Rs. 30,000 LKR · Bank transfer accepted</div>
+        <div class="bank-box">
+          <div class="bank-box-title">🏦 Bank Transfer Details</div>
+          <div class="bank-detail"><span class="bank-key">Bank</span><span class="bank-val">YOUR BANK NAME</span></div>
+          <div class="bank-detail"><span class="bank-key">Account Name</span><span class="bank-val">YOUR FULL NAME</span></div>
+          <div class="bank-detail"><span class="bank-key">Account No.</span><span class="bank-val">XXXX XXXX XXXX</span></div>
+          <div class="bank-detail"><span class="bank-key">Branch</span><span class="bank-val">YOUR BRANCH</span></div>
+          <div class="bank-detail"><span class="bank-key">Amount</span><span class="bank-val">Rs. 30,000 / $100</span></div>
+        </div>
+        <div id="form-status" class="form-status"></div>
+        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" id="f-name" placeholder="Your full name"></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="f-email" placeholder="your@email.com"></div>
+          <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" type="tel" id="f-phone" placeholder="+94 75 386 3070"></div>
+        </div>
+        <div class="form-group"><label class="form-label">City / District</label><input class="form-input" type="text" id="f-city" placeholder="Colombo, Kandy, Galle..."></div>
+        <label class="file-label" for="slip-upload">📎 Upload Payment Slip <span id="slip-name" style="color:var(--accent);font-size:0.78rem;"></span></label>
+        <input class="file-input" type="file" id="slip-upload" accept="image/*,.pdf" onchange="handleSlip(this)">
+        <button class="btn-enroll" onclick="handleEnroll()" id="enroll-btn">Complete Enrollment →</button>
+        <div class="form-secure">🔒 Safe & secure · Email confirmation sent instantly</div>
+      </div>
+      <div class="success-state" id="success-state">
+        <div class="success-icon">🎉</div>
+        <h3>Enrollment Received!</h3>
+        <p>Check your email — we've sent you a confirmation. You'll receive your course access and Discord invite within 24 hours after payment verification.<br><br>Welcome to AI Mastery 🇱🇰🔥</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="faq-wrap">
+    <div class="faq-head sr"><div class="section-tag">FAQ</div><h2>Everything you need to know.</h2></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">Do I need any tech skills? <span class="faq-icon">+</span></button><div class="faq-body"><p>Zero. Foundation starts from absolute zero. If you can use WhatsApp, you can start. No coding. No jargon.</p></div></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">How do I pay? <span class="faq-icon">+</span></button><div class="faq-body"><p>Bank transfer only. Transfer Rs.30,000 to our account shown above, upload your slip, fill the form, and we verify within 24 hours.</p></div></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">How long is my access? <span class="faq-icon">+</span></button><div class="faq-body"><p>1 full year from the day you enroll. More than enough time to complete all 3 paths and start earning.</p></div></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">Can I really earn money after this? <span class="faq-icon">+</span></button><div class="faq-body"><p>Yes — the Master path is built around earning with AI. Freelancing, content creation, automation services, AI consulting. The full blueprint is inside.</p></div></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">What is the Discord community? <span class="faq-icon">+</span></button><div class="faq-body"><p>A private group for all AI Mastery students. Ask questions, share progress, get help, and connect with other Sri Lankan AI learners.</p></div></div>
+    <div class="faq-item sr"><button class="faq-btn" onclick="toggleFaq(this)">How do I get my certificate? <span class="faq-icon">+</span></button><div class="faq-body"><p>Complete all 21 modules and message us on WhatsApp. We'll issue your AI Mastery certificate within 24 hours.</p></div></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left sr">
+      <div class="section-tag">Get In Touch</div>
+      <h2>Have questions?<br>We're here.</h2>
+      <p>Message us directly on WhatsApp or follow us on social media. We're real people — we actually reply.</p>
+      <div class="contact-methods">
+        <a href="https://wa.me/94753863070?text=Hi%20AI%20Mastery%2C%20I%20have%20a%20question." target="_blank" class="contact-method">
+          <div class="contact-method-icon">💬</div>
+          <div class="contact-method-text"><strong>WhatsApp — Chat with us</strong><span>+94 75 386 3070 · We reply fast</span></div>
+        </a>
+        <a href="https://facebook.com/aimastery.lk" target="_blank" class="contact-method">
+          <div class="contact-method-icon">📘</div>
+          <div class="contact-method-text"><strong>Facebook</strong><span>facebook.com/aimastery.lk</span></div>
+        </a>
+        <a href="https://instagram.com/aimastery.lk" target="_blank" class="contact-method">
+          <div class="contact-method-icon">📸</div>
+          <div class="contact-method-text"><strong>Instagram</strong><span>@aimastery.lk</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right sr">
+      <h3>Follow AI Mastery 🇱🇰</h3>
+      <p>Stay updated with free AI tips, new content, and course updates across all platforms.</p>
+      <div class="social-links">
+        <a href="https://facebook.com/aimastery.lk" target="_blank" class="social-link">📘 Facebook — AI Mastery LK</a>
+        <a href="https://instagram.com/aimastery.lk" target="_blank" class="social-link">📸 Instagram — @aimastery.lk</a>
+        <a href="https://tiktok.com/@aimastery.lk" target="_blank" class="social-link">🎵 TikTok — @aimastery.lk</a>
+        <a href="https://youtube.com/@aimastery.lk" target="_blank" class="social-link">▶ YouTube — AI Mastery LK</a>
+        <a href="https://discord.gg/YOURINVITE" target="_blank" class="social-link">💬 Discord — Student Community</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">AI<em>Mastery</em><span>Sri Lanka's AI Course · 2026</span></div>
+  <div class="footer-links">
+    <a href="#curriculum">Curriculum</a>
+    <a href="#enroll">Enroll</a>
+    <a href="#contact">Contact</a>
+    <a href="https://wa.me/94753863070" target="_blank">WhatsApp</a>
+  </div>
+  <p>© 2026 AI Mastery · Made for Sri Lanka 🇱🇰</p>
+</footer>
+
+<div class="chat-bubble">
+  <div class="chat-window" id="chat-window">
+    <div class="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div class="chat-header-info"><strong>AI Mastery Bot</strong><span>Ask me anything about the course</span></div>
+      <div class="chat-online"></div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot">Hey! 👋 I'm the AI Mastery assistant. Ask me anything about the course, pricing, or enrollment!</div>
+    </div>
+    <div class="chat-suggestions" id="chat-chips">
+      <div class="chat-chip" onclick="askChip('What is AI Mastery?')">What is this?</div>
+      <div class="chat-chip" onclick="askChip('How much does it cost?')">Pricing</div>
+      <div class="chat-chip" onclick="askChip('How do I enroll?')">How to enroll</div>
+      <div class="chat-chip" onclick="askChip('Do I get a certificate?')">Certificate?</div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" placeholder="Type a question..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+  <button class="chat-toggle" onclick="toggleChat()" id="chat-btn">🤖</button>
+</div>
+
+<!-- PASTE YOUR SUPABASE CONFIG HERE — see README.md for instructions -->
+<script>
+  const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
