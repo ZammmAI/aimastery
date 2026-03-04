@@ -100,7 +100,12 @@ function loadVideo() {
 }
 
 // ── SUPABASE CLIENT ──
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabase = null;
+try {
+  if (typeof SUPABASE_URL !== "undefined" && SUPABASE_URL !== "YOUR_SUPABASE_URL") {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch(e) { console.warn("Supabase not configured"); }
 
 // ── SHOW STATUS MESSAGE ──
 function showStatus(msg, type) {
@@ -136,6 +141,7 @@ async function handleEnroll() {
 
   try {
     // 1. Save to Supabase
+    if (!supabase) throw new Error("Database not configured — contact us on WhatsApp");
     const { error: dbError } = await supabase
       .from('enrollments')
       .insert([{
